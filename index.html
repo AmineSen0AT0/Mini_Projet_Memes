@@ -35,45 +35,28 @@
             <input type="file" id="upload" accept="image/*">
             <div class="meme-container">
                 <canvas id="memeCanvas" width="800" height="600"></canvas>
+                <div id="textContainer"></div>
             </div>
             <div class="text-controls">
+                <button id="addTextBtn">Ajouter du texte</button>
                 <div class="control-group">
-                    <label for="topText">Texte en haut:</label>
-                    <input type="text" id="topText" placeholder="Texte en haut">
-                </div>
-                <div class="control-group">
-                    <label for="bottomText">Texte en bas:</label>
-                    <input type="text" id="bottomText" placeholder="Texte en bas">
-                </div>
-                <div class="control-group">
-                    <label for="fontSize">Taille du texte:</label>
+                    <label for="fontSize">Taille de la police:</label>
                     <input type="number" id="fontSize" value="30">
                 </div>
                 <div class="control-group">
-                    <label for="fontColor">Couleur du texte:</label>
+                    <label for="fontColor">Couleur de la police:</label>
                     <input type="color" id="fontColor" value="#ffffff">
                 </div>
                 <div class="control-group">
-                    <label for="fontFamily">Police du texte:</label>
-                    <select id="fontFamily">
-                        <option value="Arial">Arial</option>
-                        <option value="Verdana">Verdana</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                        
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label for="fontWeight">Styles de Texte:</label>
+                    <label for="fontWeight">Style de la police:</label>
                     <select id="fontWeight">
                         <option value="bold">Gras</option>
                         <option value="normal">Normal</option>
                     </select>
                 </div>
             </div>
-            <br></br>
             <button id="downloadBtn">Télécharger</button>
             <button id="shareBtn">Partager</button>
-            <br></br> <br></br>
             <h2>Galerie (cliquez pour visualiser)</h2>
             <div class="gallery-container">
                 <div id="gallery"></div>
@@ -83,9 +66,7 @@
             <span class="close">&times;</span>
             <img class="popup-content" id="popupImg">
         </div>
-
-         
-         <section class="company">
+        <section class="company">
             <div class="content">
                 <h2>Merci d'utiliser notre application</h2>
                 <p>Profitez de notre première version d'application de génération de mèmes gratuitement en un seul clic</p>
@@ -94,8 +75,8 @@
                 </a>
             </div>
         </section>
-
         <script src="script.js"></script>
     </div>
 </body>
 </html>
+

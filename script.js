@@ -1,16 +1,14 @@
 document.getElementById('upload').addEventListener('change', handleImageUpload);
-document.getElementById('topText').addEventListener('input', drawMeme);
-document.getElementById('bottomText').addEventListener('input', drawMeme);
-document.getElementById('fontSize').addEventListener('input', drawMeme);
-document.getElementById('fontColor').addEventListener('input', drawMeme);
-document.getElementById('fontFamily').addEventListener('change', drawMeme);
-document.getElementById('fontWeight').addEventListener('change', drawMeme);
 document.getElementById('downloadBtn').addEventListener('click', downloadMeme);
 document.getElementById('shareBtn').addEventListener('click', shareMeme);
+document.getElementById('addTextBtn').addEventListener('click', addText);
 
 const canvas = document.getElementById('memeCanvas');
 const ctx = canvas.getContext('2d');
 let image = new Image();
+let texts = [];
+let selectedText = null;
+let offsetX, offsetY;
 
 function handleImageUpload(event) {
     const reader = new FileReader();
@@ -28,26 +26,90 @@ function handleImageUpload(event) {
 function drawMeme() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(image, 0, 0, 800, 600);
+    texts.forEach(text => {
+        ctx.font = `${text.fontWeight} ${text.fontSize}px ${text.fontFamily}`;
+        ctx.fillStyle = text.fontColor;
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2;
+        ctx.textAlign = 'center';
+        ctx.fillText(text.text, text.x, text.y);
+        ctx.strokeText(text.text, text.x, text.y);
+    });
+}
 
+function addText() {
     const fontSize = document.getElementById('fontSize').value;
     const fontColor = document.getElementById('fontColor').value;
-    const fontFamily = document.getElementById('fontFamily').value;
     const fontWeight = document.getElementById('fontWeight').value;
 
-    ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
-    ctx.fillStyle = fontColor;
-    ctx.strokeStyle = 'black';
-    ctx.lineWidth = 2;
-    ctx.textAlign = 'center';
+    const textDiv = document.createElement('div');
+    textDiv.classList.add('draggable-text');
+    textDiv.contentEditable = true;
+    textDiv.innerText = 'Texte';
+    document.getElementById('textContainer').appendChild(textDiv);
 
-    const topText = document.getElementById('topText').value;
-    const bottomText = document.getElementById('bottomText').value;
+    const text = {
+        text: 'Texte',
+        fontSize: fontSize,
+        fontColor: fontColor,
+        fontFamily: 'Arial',
+        fontWeight: fontWeight,
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        element: textDiv
+    };
 
-    ctx.fillText(topText, canvas.width / 2, 40);
-    ctx.strokeText(topText, canvas.width / 2, 40);
+    texts.push(text);
+    updateTextPosition(text);
+    addDragHandlers(textDiv, text);
+}
 
-    ctx.fillText(bottomText, canvas.width / 2, canvas.height - 20);
-    ctx.strokeText(bottomText, canvas.width / 2, canvas.height - 20);
+function addDragHandlers(element, text) {
+    element.addEventListener('mousedown', (e) => {
+        selectedText = text;
+        offsetX = e.offsetX;
+        offsetY = e.offsetY;
+    });
+    document.addEventListener('mousemove', (e) => {
+        if (selectedText) {
+            const rect = canvas.getBoundingClientRect();
+            selectedText.x = e.clientX - rect.left - offsetX + (element.offsetWidth / 2);
+            selectedText.y = e.clientY - rect.top - offsetY + (element.offsetHeight / 2);
+            updateTextPosition(selectedText);
+            drawMeme();
+        }
+    });
+    document.addEventListener('mouseup', () => {
+        selectedText = null;
+    });
+
+    element.addEventListener('input', () => {
+        text.text = element.innerText;
+        drawMeme();
+    });
+
+    element.addEventListener('focus', () => {
+        document.getElementById('fontSize').value = text.fontSize;
+        document.getElementById('fontColor').value = text.fontColor;
+        document.getElementById('fontWeight').value = text.fontWeight;
+        document.getElementById('fontSize').addEventListener('input', () => {
+            text.fontSize = document.getElementById('fontSize').value;
+            drawMeme();
+        });
+        document.getElementById('fontColor').addEventListener('input', () => {
+            text.fontColor = document.getElementById('fontColor').value;
+            drawMeme();
+        });
+        document.getElementById('fontWeight').addEventListener('change', () => {
+            text.fontWeight = document.getElementById('fontWeight').value;
+            drawMeme();
+        });
+    });
+}
+
+function updateTextPosition(text) {
+    text.element.style.left = `${text.x - (text.element.offsetWidth / 2)}px`;
+    text.element.style.top = `${text.y - (text.element.offsetHeight / 2)}px`;
 }
 
 function downloadMeme() {
@@ -72,12 +134,34 @@ function shareMeme() {
 }
 
 function addMemeToGallery() {
+    const gallery = document.getElementById('gallery');
+    const memeCount = gallery.childElementCount + 1;
+    const date = new Date().toLocaleString();
+
+    const galleryItem = document.createElement('div');
+    galleryItem.classList.add('gallery-item');
+
     const img = new Image();
     img.src = canvas.toDataURL('image/png');
-    img.addEventListener('click', function() {
-        openPopup(img.src);
-    });
-    document.getElementById('gallery').appendChild(img);
+    img.addEventListener('click', () => openPopup(img.src));
+
+    const info = document.createElement('div');
+    info.innerHTML = `<p>Image #${memeCount} - Ajoutée le ${date}</p>`;
+    
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerText = 'Supprimer';
+    deleteBtn.addEventListener('click', () => gallery.removeChild(galleryItem));
+
+    const viewBtn = document.createElement('button');
+    viewBtn.innerText = 'Visualiser';
+    viewBtn.addEventListener('click', () => openPopup(img.src));
+
+    info.appendChild(deleteBtn);
+    info.appendChild(viewBtn);
+
+    galleryItem.appendChild(info);
+    galleryItem.appendChild(img);
+    gallery.appendChild(galleryItem);
 }
 
 function openPopup(src) {
@@ -87,6 +171,6 @@ function openPopup(src) {
     popup.style.display = 'block';
 }
 
-document.querySelector('.close').addEventListener('click', function() {
+document.querySelector('.close').addEventListener('click', () => {
     document.getElementById('popup').style.display = 'none';
 });

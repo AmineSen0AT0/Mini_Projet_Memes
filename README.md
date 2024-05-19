@@ -65,4 +65,4 @@ Les contributions sont les bienvenues !
 
 ## Licence
 
-SOON: Ce projet est sous licence [MIT](LICENSE).
+Open
