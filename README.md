@@ -16,7 +16,7 @@ Ce projet est un générateur de mèmes en ligne où les utilisateurs peuvent t�
 
 ## Aperçu
 
-![Générateur de Mèmes](memes_screenshot.png)
+![Générateur de Mèmes](memes.jpg)
 
 ---
 
