@@ -25,13 +25,13 @@ Ce projet est un générateur de mèmes en ligne où les utilisateurs peuvent t�
 1. Clonez le repository :
 
     ```bash
-    git clone https://github.com/VotreNom/Generateur-de-Memes.git
+    git clone https://github.com/AmineSen0AT0/Mini_Projet_Memes.git
     ```
 
 2. Ouvrez le dossier du projet :
 
     ```bash
-    cd Generateur-de-Memes
+    cd Mini_Projet_Memes
     ```
 
 3. Ouvrez le fichier `index.html` dans votre navigateur web.
