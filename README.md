@@ -3,6 +3,7 @@
 Ce projet est un générateur de mèmes en ligne où les utilisateurs peuvent télécharger des images, ajouter du texte, et créer rapidement des mèmes. L'application permet également de visualiser, télécharger et partager les mèmes créés.
 
 ---
+
 ## Accéder Directement au Site
 
 Vous pouvez accéder directement au site en suivant ce lien : [Générateur de Mèmes](https://mini-projet-supinfo-zerarga.netlify.app/)
