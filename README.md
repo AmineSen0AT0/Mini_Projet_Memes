@@ -6,7 +6,7 @@ Ce projet est un générateur de mèmes en ligne où les utilisateurs peuvent t�
 
 ## Accéder Directement au Site
 
-Vous pouvez accéder directement au site en suivant ce lien : [Générateur de Mèmes](https://mini-projet-supinfo-zerarga.netlify.app/)
+Vous pouvez accéder directement au site en suivant ce lien : [Générateur de Mèmes](https://memes-generator-amine-ai.netlify.app/)
 
 ---
 
@@ -27,7 +27,7 @@ Vous pouvez accéder directement au site en suivant ce lien : [Générateur de M
 ---
 ## Accéder Directement au Site
 
-Vous pouvez accéder directement au site en suivant ce lien : [Générateur de Mèmes](https://mini-projet-supinfo-zerarga.netlify.app/)
+Vous pouvez accéder directement au site en suivant ce lien : [Générateur de Mèmes](https://memes-generator-amine-ai.netlify.app/)
 
 ---
 
